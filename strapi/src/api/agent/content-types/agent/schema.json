@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "agents",
+  "info": {
+    "singularName": "agent",
+    "pluralName": "agents",
+    "displayName": "Agent"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Email": {
+      "type": "email"
+    },
+    "Phone": {
+      "type": "string"
+    },
+    "Photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "properties": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::property.property"
+    },
+    "property": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::property.property",
+      "inversedBy": "agent"
+    }
+  }
+}

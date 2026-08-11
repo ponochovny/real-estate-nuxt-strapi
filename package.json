@@ -1,0 +1,16 @@
+{
+  "name": "nuxt-strapi-real-estate",
+  "description": "Real Estate - Nuxt + Strapi",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:nuxt": "npm run dev --workspace=frontend",
+    "dev:strapi": "npm run dev --workspace=strapi"
+  },
+  "workspaces": [
+    "frontend",
+    "strapi"
+  ],
+  "devDependencies": {
+    "npm-run-all2": "^8.0.4"
+  }
+}
