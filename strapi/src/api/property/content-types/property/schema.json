@@ -11,38 +11,38 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
     },
-    "Slug": {
+    "slug": {
       "type": "uid",
-      "targetField": "Title"
+      "targetField": "title"
     },
-    "Description": {
+    "description": {
       "type": "blocks"
     },
-    "Price": {
-      "type": "biginteger"
-    },
-    "Bedrooms": {
-      "type": "integer"
-    },
-    "Bathrooms": {
-      "type": "integer"
-    },
-    "Area": {
+    "price": {
       "type": "decimal"
     },
-    "Latitude": {
+    "bedrooms": {
+      "type": "integer"
+    },
+    "bathrooms": {
+      "type": "integer"
+    },
+    "area": {
       "type": "decimal"
     },
-    "Longitude": {
+    "latitude": {
+      "type": "decimal"
+    },
+    "longitude": {
       "type": "decimal"
     },
     "IsFeatured": {
       "type": "boolean"
     },
-    "Images": {
+    "images": {
       "type": "media",
       "multiple": true,
       "allowedTypes": [
@@ -54,21 +54,21 @@
     },
     "category": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::category.category",
-      "mappedBy": "property"
+      "inversedBy": "properties"
     },
     "agent": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::agent.agent",
-      "mappedBy": "property"
+      "inversedBy": "properties"
     },
     "location": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::location.location",
-      "inversedBy": "property"
+      "inversedBy": "properties"
     }
   }
 }

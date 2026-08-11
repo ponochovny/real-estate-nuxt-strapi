@@ -11,23 +11,18 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Slug": {
+    "slug": {
       "type": "uid",
-      "targetField": "Name"
+      "targetField": "name"
     },
     "properties": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::property.property"
-    },
-    "property": {
-      "type": "relation",
-      "relation": "oneToOne",
       "target": "api::property.property",
-      "inversedBy": "category"
+      "mappedBy": "category"
     }
   }
 }

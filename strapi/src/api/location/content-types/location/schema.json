@@ -15,7 +15,7 @@
     }
   },
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
@@ -23,23 +23,18 @@
         }
       }
     },
-    "Slug": {
+    "slug": {
       "type": "uid",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "targetField": "Title"
+      "targetField": "title"
     },
     "properties": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::property.property"
-    },
-    "property": {
-      "type": "relation",
-      "relation": "oneToOne",
       "target": "api::property.property",
       "mappedBy": "location"
     }

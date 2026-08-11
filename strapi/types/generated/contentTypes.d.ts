@@ -494,18 +494,17 @@ export interface ApiAgentAgent extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Email: Schema.Attribute.Email;
+    email: Schema.Attribute.Email;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::agent.agent'> &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
-    Phone: Schema.Attribute.String;
-    Photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     properties: Schema.Attribute.Relation<
       'oneToMany',
       'api::property.property'
     >;
-    property: Schema.Attribute.Relation<'oneToOne', 'api::property.property'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -533,14 +532,13 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       'api::category.category'
     > &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
+    name: Schema.Attribute.String;
     properties: Schema.Attribute.Relation<
       'oneToMany',
       'api::property.property'
     >;
-    property: Schema.Attribute.Relation<'oneToOne', 'api::property.property'>;
     publishedAt: Schema.Attribute.DateTime;
-    Slug: Schema.Attribute.UID<'Name'>;
+    slug: Schema.Attribute.UID<'name'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -575,15 +573,14 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::property.property'
     >;
-    property: Schema.Attribute.Relation<'oneToOne', 'api::property.property'>;
     publishedAt: Schema.Attribute.DateTime;
-    Slug: Schema.Attribute.UID<'Title'> &
+    slug: Schema.Attribute.UID<'title'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Title: Schema.Attribute.String &
+    title: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -606,33 +603,33 @@ export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    agent: Schema.Attribute.Relation<'oneToOne', 'api::agent.agent'>;
-    Area: Schema.Attribute.Decimal;
-    Bathrooms: Schema.Attribute.Integer;
-    Bedrooms: Schema.Attribute.Integer;
-    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    agent: Schema.Attribute.Relation<'manyToOne', 'api::agent.agent'>;
+    area: Schema.Attribute.Decimal;
+    bathrooms: Schema.Attribute.Integer;
+    bedrooms: Schema.Attribute.Integer;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Description: Schema.Attribute.Blocks;
-    Images: Schema.Attribute.Media<
+    description: Schema.Attribute.Blocks;
+    images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
     IsFeatured: Schema.Attribute.Boolean;
-    Latitude: Schema.Attribute.Decimal;
+    latitude: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::property.property'
     > &
       Schema.Attribute.Private;
-    location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
-    Longitude: Schema.Attribute.Decimal;
-    Price: Schema.Attribute.BigInteger;
+    location: Schema.Attribute.Relation<'manyToOne', 'api::location.location'>;
+    longitude: Schema.Attribute.Decimal;
+    price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    Slug: Schema.Attribute.UID<'Title'>;
-    Title: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
