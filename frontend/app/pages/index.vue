@@ -2,6 +2,8 @@
 
 <template>
   <div class="container mx-auto">
-    <NuxtLink to="/properties">Properties</NuxtLink>
+    <Button variant="link" as-child>
+      <NuxtLink to="/properties">Explore Properties</NuxtLink>
+    </Button>
   </div>
 </template>

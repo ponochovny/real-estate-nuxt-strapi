@@ -46,7 +46,7 @@ watch(
 </script>
 
 <template>
-  <div class="container mx-auto py-8 flex gap-8">
+  <div class="container mx-auto py-8 flex gap-8 px-4">
     <aside class="w-1/4">
       <CatalogFilters v-model="filters" @change="applyFiltersToUrl" />
     </aside>
