@@ -46,6 +46,14 @@ const formattedPrice = computed(() => {
     maximumFractionDigits: 0,
   }).format(props.property.price);
 });
+
+const agentPhotoUrl = computed(() => {
+  const url = props.property.agent?.photo?.url;
+  if (!url) return null;
+  return url.startsWith("http")
+    ? url
+    : `${config.public.strapiUrl || ""}${url}`;
+});
 </script>
 
 <template>
@@ -102,8 +110,8 @@ const formattedPrice = computed(() => {
       >
         <div class="h-8 w-8 overflow-hidden rounded-full bg-slate-200">
           <img
-            v-if="property.agent.photo.url"
-            :src="config.public.strapiUrl + property.agent.photo.url"
+            v-if="agentPhotoUrl"
+            :src="agentPhotoUrl"
             :alt="property.agent.name"
             class="h-full w-full object-cover"
           />

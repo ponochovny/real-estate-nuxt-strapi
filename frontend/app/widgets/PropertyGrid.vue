@@ -36,7 +36,7 @@ defineProps<{
     <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <PropertyCard
         v-for="item in properties"
-        :key="item.id"
+        :key="item.documentId"
         :property="item"
       />
     </div>
