@@ -1,0 +1,28 @@
+query GetProperties($filters: PropertyFiltersInput) {
+  properties(filters: $filters) {
+    documentId
+    title
+    slug
+    price
+    latitude
+    longitude
+    bedrooms
+    bathrooms
+    area
+    category {
+      name
+    }
+    location {
+      title
+    }
+    images {
+      url
+    }
+    agent {
+      name
+      photo {
+        url
+      }
+    }
+  }
+}
