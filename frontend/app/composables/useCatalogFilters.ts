@@ -18,10 +18,8 @@ export const useCatalogFilters = () => {
       priceMin: route.query.priceMin ? Number(route.query.priceMin) : null,
       priceMax: route.query.priceMax ? Number(route.query.priceMax) : null,
       location: (route.query.location as string) || "",
-      sea_view: route.query.sea_view ? Boolean(route.query.sea_view) : false,
-      swimming_pool: route.query.swimming_pool
-        ? Boolean(route.query.swimming_pool)
-        : false,
+      sea_view: route.query.sea_view === "true",
+      swimming_pool: route.query.swimming_pool === "true",
     };
   };
 

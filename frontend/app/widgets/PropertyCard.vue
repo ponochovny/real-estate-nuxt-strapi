@@ -31,6 +31,12 @@ interface PropertyProps {
 const props = defineProps<PropertyProps>();
 const config = useRuntimeConfig();
 
+const coverUrl = computed(() => {
+  const url = props.property.images?.[0]?.url;
+  if (!url) return "/placeholder-house.jpg";
+  return url;
+});
+
 const formattedPrice = computed(() => {
   return new Intl.NumberFormat("ru-RU", {
     style: "currency",
@@ -46,7 +52,7 @@ const formattedPrice = computed(() => {
   >
     <div class="relative h-64 overflow-hidden bg-slate-100">
       <img
-        :src="property.images?.[0]?.url"
+        :src="coverUrl"
         :alt="property.title"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
