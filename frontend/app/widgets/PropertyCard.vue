@@ -31,28 +31,12 @@ interface PropertyProps {
 const props = defineProps<PropertyProps>();
 const config = useRuntimeConfig();
 
-const coverUrl = computed(() => {
-  const url = props.property.images?.[0]?.url;
-  if (!url) return "/placeholder-house.jpg";
-  return url.startsWith("http")
-    ? url
-    : `${config.public.strapiUrl || ""}${url}`;
-});
-
 const formattedPrice = computed(() => {
   return new Intl.NumberFormat("ru-RU", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(props.property.price);
-});
-
-const agentPhotoUrl = computed(() => {
-  const url = props.property.agent?.photo?.url;
-  if (!url) return null;
-  return url.startsWith("http")
-    ? url
-    : `${config.public.strapiUrl || ""}${url}`;
 });
 </script>
 
@@ -62,7 +46,7 @@ const agentPhotoUrl = computed(() => {
   >
     <div class="relative h-64 overflow-hidden bg-slate-100">
       <img
-        :src="coverUrl"
+        :src="property.images?.[0]?.url"
         :alt="property.title"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
@@ -110,8 +94,8 @@ const agentPhotoUrl = computed(() => {
       >
         <div class="h-8 w-8 overflow-hidden rounded-full bg-slate-200">
           <img
-            v-if="agentPhotoUrl"
-            :src="agentPhotoUrl"
+            v-if="property.agent.photo"
+            :src="property.agent.photo.url"
             :alt="property.agent.name"
             class="h-full w-full object-cover"
           />

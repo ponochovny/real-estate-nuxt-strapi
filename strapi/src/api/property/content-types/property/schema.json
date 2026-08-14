@@ -39,9 +39,6 @@
     "longitude": {
       "type": "decimal"
     },
-    "IsFeatured": {
-      "type": "boolean"
-    },
     "images": {
       "type": "media",
       "multiple": true,
@@ -69,6 +66,12 @@
       "relation": "manyToOne",
       "target": "api::location.location",
       "inversedBy": "properties"
+    },
+    "swimming_pool": {
+      "type": "boolean"
+    },
+    "sea_view": {
+      "type": "boolean"
     }
   }
 }

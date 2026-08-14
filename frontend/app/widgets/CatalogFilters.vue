@@ -4,7 +4,8 @@ export interface FilterState {
   location: string;
   priceMin: number | null;
   priceMax: number | null;
-  features: string[];
+  sea_view: boolean;
+  swimming_pool: boolean;
 }
 
 const props = defineProps<{
@@ -39,7 +40,8 @@ const handleReset = () => {
   localFilters.location = "";
   localFilters.priceMin = null;
   localFilters.priceMax = null;
-  localFilters.features = [];
+  localFilters.sea_view = false;
+  localFilters.swimming_pool = false;
   handleApply();
 };
 </script>
@@ -48,13 +50,9 @@ const handleReset = () => {
   <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
     <div class="mb-6 flex items-center justify-between">
       <h3 class="text-lg font-bold text-slate-900">Filters</h3>
-      <button
-        type="button"
-        class="text-sm font-medium text-indigo-600 hover:text-indigo-800"
-        @click="handleReset"
-      >
+      <Button type="button" variant="outline" size="sm" @click="handleReset">
         Reset
-      </button>
+      </Button>
     </div>
 
     <form @submit.prevent="handleApply" class="space-y-6">
@@ -78,17 +76,17 @@ const handleReset = () => {
           >Price ($)</label
         >
         <div class="grid grid-cols-2 gap-2">
-          <input
-            v-model.number="localFilters.priceMin"
+          <Input
+            :value.number="localFilters.priceMin"
             type="number"
             placeholder="From"
-            class="w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            min="0"
           />
-          <input
-            v-model.number="localFilters.priceMax"
+          <Input
+            :value.number="localFilters.priceMax"
             type="number"
             placeholder="To"
-            class="w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            min="0"
           />
         </div>
       </div>
@@ -102,9 +100,9 @@ const handleReset = () => {
             class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer"
           >
             <input
-              v-model="localFilters.features"
+              v-model="localFilters.swimming_pool"
               type="checkbox"
-              value="1"
+              :value="!!localFilters.swimming_pool"
               class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
             />
             Swimming pool
@@ -113,9 +111,9 @@ const handleReset = () => {
             class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer"
           >
             <input
-              v-model="localFilters.features"
+              v-model="localFilters.sea_view"
               type="checkbox"
-              value="2"
+              :value="!!localFilters.sea_view"
               class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
             />
             Sea view
@@ -123,12 +121,7 @@ const handleReset = () => {
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="w-full rounded-lg bg-indigo-600 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-indigo-700"
-      >
-        Apply
-      </button>
+      <Button type="submit" class="w-full">Apply</Button>
     </form>
   </div>
 </template>

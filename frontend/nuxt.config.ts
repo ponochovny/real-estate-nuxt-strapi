@@ -14,6 +14,15 @@ export default defineNuxtConfig({
       },
     },
   },
+  $development: {
+    apollo: {
+      clients: {
+        default: {
+          httpEndpoint: "http://localhost:1337/graphql",
+        },
+      },
+    },
+  },
   runtimeConfig: {
     public: {
       strapiUrl: import.meta.env.STRAPI_URL,

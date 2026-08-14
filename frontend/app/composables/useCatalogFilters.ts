@@ -3,7 +3,8 @@ export interface CatalogFilters {
   priceMin: number | null;
   priceMax: number | null;
   location: string;
-  features: string[];
+  sea_view: boolean;
+  swimming_pool: boolean;
 }
 
 export const useCatalogFilters = () => {
@@ -12,18 +13,15 @@ export const useCatalogFilters = () => {
 
   // 1. Safe parsing of parameters from URL
   const parseQueryFilters = (): CatalogFilters => {
-    const parseFeatures = (val: any): string[] => {
-      if (!val) return [];
-      if (Array.isArray(val)) return val as string[];
-      return String(val).split(",");
-    };
-
     return {
       category: (route.query.category as string) || "",
       priceMin: route.query.priceMin ? Number(route.query.priceMin) : null,
       priceMax: route.query.priceMax ? Number(route.query.priceMax) : null,
       location: (route.query.location as string) || "",
-      features: parseFeatures(route.query.features),
+      sea_view: route.query.sea_view ? Boolean(route.query.sea_view) : false,
+      swimming_pool: route.query.swimming_pool
+        ? Boolean(route.query.swimming_pool)
+        : false,
     };
   };
 
@@ -46,8 +44,11 @@ export const useCatalogFilters = () => {
       if (f.priceMax !== null && !isNaN(f.priceMax)) price.lte = f.priceMax;
       if (Object.keys(price).length > 0) query.price = price;
     }
-    if (f.features?.length) {
-      query.features = { id: { in: f.features } };
+    if (f.sea_view) {
+      query.sea_view = { eq: f.sea_view };
+    }
+    if (f.swimming_pool) {
+      query.swimming_pool = { eq: f.swimming_pool };
     }
 
     return query;
@@ -78,10 +79,12 @@ export const useCatalogFilters = () => {
       query.priceMin = filters.value.priceMin;
     if (filters.value.priceMax !== null)
       query.priceMax = filters.value.priceMax;
-    if (filters.value.features?.length) {
-      query.features = filters.value.features.join(",");
+    if (filters.value.sea_view) {
+      query.sea_view = filters.value.sea_view;
     }
-
+    if (filters.value.swimming_pool) {
+      query.swimming_pool = filters.value.swimming_pool;
+    }
     router.push({ query });
   };
 
@@ -91,7 +94,8 @@ export const useCatalogFilters = () => {
       priceMin: null,
       priceMax: null,
       location: "",
-      features: [],
+      sea_view: false,
+      swimming_pool: false,
     };
     applyFiltersToUrl();
   };

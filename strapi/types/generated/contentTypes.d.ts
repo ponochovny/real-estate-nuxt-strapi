@@ -616,7 +616,6 @@ export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    IsFeatured: Schema.Attribute.Boolean;
     latitude: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -628,7 +627,9 @@ export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
     longitude: Schema.Attribute.Decimal;
     price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
+    sea_view: Schema.Attribute.Boolean;
     slug: Schema.Attribute.UID<'title'>;
+    swimming_pool: Schema.Attribute.Boolean;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

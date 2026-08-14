@@ -24,5 +24,7 @@ query GetProperties($filters: PropertyFiltersInput) {
         url
       }
     }
+    sea_view
+    swimming_pool
   }
 }
