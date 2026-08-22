@@ -51,9 +51,6 @@ const renderMarkers = async (LInstance?: any) => {
   // Clear old markers
   markersGroup.clearLayers();
 
-  //   markersMap.forEach((marker) => marker.remove());
-  //   markersMap.clear();
-
   props.properties.forEach((item) => {
     const coords = item;
     if (coords?.latitude == null || coords?.longitude == null) return;
