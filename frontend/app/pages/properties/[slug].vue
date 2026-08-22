@@ -81,10 +81,14 @@ const property = computed(() => data.value?.properties?.[0]);
     <p class="text-slate-500">Loading...</p>
   </div>
 
-  <div
-    v-else-if="error || !property"
-    class="container mx-auto py-24 px-4 text-center"
-  >
+  <div v-else-if="error" class="container mx-auto py-24 px-4 text-center">
+    <h1 class="text-3xl font-bold text-slate-900 mb-4">
+      Unable to load property
+    </h1>
+    <p class="text-slate-500 mb-8">Please try again later.</p>
+  </div>
+
+  <div v-else-if="!property" class="container mx-auto py-24 px-4 text-center">
     <h1 class="text-3xl font-bold text-slate-900 mb-4">Property Not Found</h1>
     <p class="text-slate-500 mb-8">
       The property you are looking for does not exist or has been removed.
