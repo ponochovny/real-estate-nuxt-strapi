@@ -6,9 +6,14 @@ export const useActiveProperty = () => {
 
   const { filters, applyFiltersToUrl } = useCatalogFilters();
 
-  onMounted(() => {
-    selectedPropertyId.value = route.query.activeProperty as string | null;
-  });
+  watch(
+    () => route.query.activeProperty,
+    (activeProperty) => {
+      selectedPropertyId.value =
+        typeof activeProperty === "string" ? activeProperty : null;
+    },
+    { immediate: true },
+  );
 
   const computedHoveredPropertyId = computed(() => {
     return hoveredPropertyId.value;

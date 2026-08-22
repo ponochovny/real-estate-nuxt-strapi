@@ -29,6 +29,13 @@ onMounted(async () => {
   renderMarkers(L);
 });
 
+onBeforeUnmount(() => {
+  map?.remove();
+  map = null;
+  markersGroup = null;
+  markersMap.clear();
+});
+
 const getFormattedPrice = (price: number) => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -49,7 +56,7 @@ const renderMarkers = async (LInstance?: any) => {
 
   props.properties.forEach((item) => {
     const coords = item;
-    if (!coords?.latitude || !coords?.longitude) return;
+    if (coords?.latitude == null || coords?.longitude == null) return;
 
     const icon = createCustomIcon(
       L,
@@ -106,11 +113,10 @@ const createCustomIcon = (L: any, price: number, isActive: boolean) => {
 // Map reaction to hoveredPropertyId from the list of cards
 watch(hoveredPropertyId, async (newId) => {
   const L = await import("leaflet");
+  if (!map || !markersGroup) return;
 
   // Remove all markers from group
-  markersGroup.clearLayers();
-
-  // Recreate markers
+  markersGroup.clearLayers(); // Recreate markers
   props.properties.forEach((item) => {
     const coords = item;
     if (!coords?.latitude || !coords?.longitude) return;

@@ -6,6 +6,7 @@ export interface FilterState {
   priceMax: number | null;
   sea_view: boolean;
   swimming_pool: boolean;
+  activeProperty: string | null;
 }
 
 const props = defineProps<{
@@ -42,6 +43,7 @@ const handleReset = () => {
   localFilters.priceMax = null;
   localFilters.sea_view = false;
   localFilters.swimming_pool = false;
+  localFilters.activeProperty = null;
   handleApply();
 };
 

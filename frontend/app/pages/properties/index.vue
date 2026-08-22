@@ -47,8 +47,10 @@ watch(
 </script>
 
 <template>
-  <div class="container mx-auto py-8 flex gap-8 px-4">
-    <aside class="w-1/4">
+  <div
+    class="container mx-auto grid gap-8 px-4 py-8 lg:grid-cols-[minmax(14rem,1fr)_minmax(0,2fr)_minmax(22rem,3fr)]"
+  >
+    <aside>
       <CatalogFilters
         v-model="filters"
         class="sticky top-24"
@@ -56,11 +58,11 @@ watch(
       />
     </aside>
 
-    <main class="w-1/2">
+    <main class="min-w-0">
       <PropertyGrid :properties="data?.properties || []" :loading="pending" />
     </main>
 
-    <aside class="w-3/4">
+    <aside class="min-w-0">
       <PropertyMap :properties="data?.properties || []" />
     </aside>
   </div>

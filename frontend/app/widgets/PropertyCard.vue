@@ -106,6 +106,7 @@ watch(
         variant="outline"
         size="icon"
         @click.stop="setSelected(property.documentId)"
+        :aria-label="`Select ${property.title} on the map`"
         class="absolute right-4 top-4"
       >
         <MapPinnedIcon

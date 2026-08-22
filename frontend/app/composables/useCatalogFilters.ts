@@ -72,15 +72,13 @@ export const useCatalogFilters = () => {
   // 6. Method for writting filters to URL (called when clicking "Apply" or checkboxes)
   const applyFiltersToUrl = () => {
     const query: Record<string, any> = {};
+    const routeCategory =
+      typeof route.query.category === "string" ? route.query.category : "";
 
+    if (routeCategory !== filters.value.category) {
+      filters.value.activeProperty = null;
+    }
     if (filters.value.category) {
-      if (
-        route.query.category &&
-        route.query.category !== filters.value.category
-      ) {
-        filters.value.activeProperty = null;
-      }
-
       query.category = filters.value.category;
     }
     if (filters.value.activeProperty) {
