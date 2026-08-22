@@ -48,17 +48,10 @@ watch(
 
 <template>
   <div
-    class="container mx-auto grid gap-8 px-4 py-8 lg:grid-cols-[minmax(14rem,1fr)_minmax(0,2fr)_minmax(22rem,3fr)]"
+    class="grid gap-8 px-4 py-6 lg:grid-cols-[minmax(0,2fr)_minmax(22rem,3fr)]"
   >
-    <aside>
-      <CatalogFilters
-        v-model="filters"
-        class="sticky top-24"
-        @change="applyFiltersToUrl"
-      />
-    </aside>
-
-    <main class="min-w-0">
+    <main class="min-w-0 space-y-6">
+      <CatalogFilters v-model="filters" @change="applyFiltersToUrl" />
       <PropertyGrid :properties="data?.properties || []" :loading="pending" />
     </main>
 

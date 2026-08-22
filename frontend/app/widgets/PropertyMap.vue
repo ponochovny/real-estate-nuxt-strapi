@@ -21,9 +21,13 @@ onMounted(async () => {
 
   map = L.map(mapContainer.value).setView([41.47, 2.08], 11);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap",
-  }).addTo(map);
+  L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    {
+      attribution:
+        "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+    },
+  ).addTo(map);
 
   markersGroup = L.layerGroup().addTo(map);
   renderMarkers(L);
@@ -157,7 +161,7 @@ watch(
 
 <template>
   <div
-    class="sticky top-6 h-[calc(100vh-6rem)] w-full overflow-hidden rounded-2xl border border-slate-200 shadow-sm"
+    class="sticky top-6 h-[calc(100vh-48px)] w-full overflow-hidden rounded-2xl border border-slate-200 shadow-sm"
   >
     <div ref="mapContainer" class="h-full w-full z-0"></div>
   </div>

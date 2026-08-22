@@ -32,6 +32,7 @@ interface PropertyProps {
 }
 
 const props = defineProps<PropertyProps>();
+const route = useRoute();
 
 const coverUrl = computed(() => {
   const url = props.property.images?.[0]?.url;
@@ -76,6 +77,13 @@ watch(
     }
   },
 );
+
+onMounted(() => {
+  const activeProperty = route.query.activeProperty;
+  if (activeProperty && activeProperty === props.property.documentId) {
+    scrollToTarget();
+  }
+});
 </script>
 
 <template>

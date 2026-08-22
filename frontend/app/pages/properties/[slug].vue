@@ -67,7 +67,7 @@ type Property = {
   }[];
 };
 
-const { data, pending } = await useAsyncQuery<{
+const { data, pending, error } = await useAsyncQuery<{
   properties: Property[];
 }>(GET_PROPERTY_BY_SLUG, {
   filters: { slug: { eq: slug.value } },
@@ -81,7 +81,23 @@ const property = computed(() => data.value?.properties?.[0]);
     <p class="text-slate-500">Loading...</p>
   </div>
 
-  <div v-else-if="property" class="container mx-auto px-4 py-8">
+  <div
+    v-else-if="error || !property"
+    class="container mx-auto py-24 px-4 text-center"
+  >
+    <h1 class="text-3xl font-bold text-slate-900 mb-4">Property Not Found</h1>
+    <p class="text-slate-500 mb-8">
+      The property you are looking for does not exist or has been removed.
+    </p>
+    <NuxtLink
+      to="/"
+      class="inline-flex items-center justify-center bg-indigo-600 text-white font-medium px-6 py-3 rounded-xl hover:bg-indigo-700 transition"
+    >
+      Back to Home
+    </NuxtLink>
+  </div>
+
+  <div v-else class="container mx-auto px-4 py-8">
     <!-- Header -->
     <div
       class="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center"
@@ -136,9 +152,9 @@ const property = computed(() => data.value?.properties?.[0]);
 
         <div v-if="property.description">
           <h2 class="text-xl font-bold mb-3">Description</h2>
-          <p class="text-slate-600 leading-relaxed">
+          <div class="text-slate-600 leading-relaxed">
             <StrapiBlocksText :nodes="property.description" />
-          </p>
+          </div>
         </div>
 
         <!-- Amenities / Tags -->
@@ -180,6 +196,7 @@ const property = computed(() => data.value?.properties?.[0]);
             </div>
           </div>
           <a
+            v-if="property.agent?.phone"
             :href="`tel:${property.agent?.phone}`"
             class="block w-full text-center bg-indigo-600 text-white font-medium py-3 rounded-xl hover:bg-indigo-700 transition"
           >
