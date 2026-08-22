@@ -44,6 +44,9 @@ const handleReset = () => {
   localFilters.swimming_pool = false;
   handleApply();
 };
+
+const toPrice = (value: string | number) =>
+  value === "" ? null : Number(value);
 </script>
 
 <template>
@@ -62,7 +65,7 @@ const handleReset = () => {
         >
         <select
           v-model="localFilters.category"
-          class="w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+          class="w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-none focus:ring-1 focus:ring-indigo-500"
         >
           <option value="">All types</option>
           <option value="Villa">Villas</option>
@@ -77,13 +80,19 @@ const handleReset = () => {
         >
         <div class="grid grid-cols-2 gap-2">
           <Input
-            :value.number="localFilters.priceMin"
+            :model-value="localFilters.priceMin ?? ''"
+            @update:model-value="
+              (value) => (localFilters.priceMin = toPrice(value))
+            "
             type="number"
             placeholder="From"
             min="0"
           />
           <Input
-            :value.number="localFilters.priceMax"
+            :model-value="localFilters.priceMax ?? ''"
+            @update:model-value="
+              (value) => (localFilters.priceMax = toPrice(value))
+            "
             type="number"
             placeholder="To"
             min="0"

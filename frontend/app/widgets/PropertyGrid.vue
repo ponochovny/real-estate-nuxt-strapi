@@ -10,14 +10,11 @@ defineProps<{
 <template>
   <div>
     <!-- Skeleton while loading -->
-    <div
-      v-if="loading"
-      class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-    >
+    <div v-if="loading" class="grid grid-cols-1 gap-6">
       <div
         v-for="i in 6"
         :key="i"
-        class="h-[420px] animate-pulse rounded-2xl bg-slate-200"
+        class="h-105 animate-pulse rounded-2xl bg-slate-200"
       ></div>
     </div>
 
@@ -33,7 +30,7 @@ defineProps<{
     </div>
 
     <!-- Grid of cards -->
-    <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div v-else class="grid grid-cols-1 gap-6">
       <PropertyCard
         v-for="item in properties"
         :key="item.documentId"

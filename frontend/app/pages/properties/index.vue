@@ -2,6 +2,7 @@
 import CatalogFilters from "~/widgets/CatalogFilters.vue";
 import PropertyGrid from "~/widgets/PropertyGrid.vue";
 import GET_PROPERTIES from "~/utils/queries/properties.gql";
+import PropertyMap from "~/widgets/PropertyMap.vue";
 
 const route = useRoute();
 const { filters, queryVariables, applyFiltersToUrl } = useCatalogFilters();
@@ -48,11 +49,19 @@ watch(
 <template>
   <div class="container mx-auto py-8 flex gap-8 px-4">
     <aside class="w-1/4">
-      <CatalogFilters v-model="filters" @change="applyFiltersToUrl" />
+      <CatalogFilters
+        v-model="filters"
+        class="sticky top-24"
+        @change="applyFiltersToUrl"
+      />
     </aside>
 
-    <main class="w-3/4">
+    <main class="w-1/2">
       <PropertyGrid :properties="data?.properties || []" :loading="pending" />
     </main>
+
+    <aside class="w-3/4">
+      <PropertyMap :properties="data?.properties || []" />
+    </aside>
   </div>
 </template>

@@ -5,6 +5,7 @@ export interface CatalogFilters {
   location: string;
   sea_view: boolean;
   swimming_pool: boolean;
+  activeProperty: string | null;
 }
 
 export const useCatalogFilters = () => {
@@ -20,6 +21,7 @@ export const useCatalogFilters = () => {
       location: (route.query.location as string) || "",
       sea_view: route.query.sea_view === "true",
       swimming_pool: route.query.swimming_pool === "true",
+      activeProperty: route.query.activeProperty as string | null,
     };
   };
 
@@ -71,7 +73,19 @@ export const useCatalogFilters = () => {
   const applyFiltersToUrl = () => {
     const query: Record<string, any> = {};
 
-    if (filters.value.category) query.category = filters.value.category;
+    if (filters.value.category) {
+      if (
+        route.query.category &&
+        route.query.category !== filters.value.category
+      ) {
+        filters.value.activeProperty = null;
+      }
+
+      query.category = filters.value.category;
+    }
+    if (filters.value.activeProperty) {
+      query.activeProperty = filters.value.activeProperty;
+    }
     if (filters.value.location) query.location = filters.value.location;
     if (filters.value.priceMin !== null)
       query.priceMin = filters.value.priceMin;
@@ -94,6 +108,7 @@ export const useCatalogFilters = () => {
       location: "",
       sea_view: false,
       swimming_pool: false,
+      activeProperty: "",
     };
     applyFiltersToUrl();
   };

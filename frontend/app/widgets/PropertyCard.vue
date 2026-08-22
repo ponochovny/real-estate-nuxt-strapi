@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { MapPinnedIcon } from "@lucide/vue";
+import { useActiveProperty } from "~/composables/useActiveProperty";
+
 interface PropertyProps {
   property: {
     documentId: string;
@@ -29,11 +32,10 @@ interface PropertyProps {
 }
 
 const props = defineProps<PropertyProps>();
-const config = useRuntimeConfig();
 
 const coverUrl = computed(() => {
   const url = props.property.images?.[0]?.url;
-  if (!url) return "/placeholder-house.jpg";
+  if (!url) return "https://placehold.net/400x400.png";
   return url;
 });
 
@@ -44,11 +46,49 @@ const formattedPrice = computed(() => {
     maximumFractionDigits: 0,
   }).format(props.property.price);
 });
+
+const { setHovered, setSelected, selectedPropertyId, hoveredPropertyId } =
+  useActiveProperty();
+
+// Check if the current card is highlighted (e.g., when hovering over a map pin)
+const isActive = computed(
+  () =>
+    selectedPropertyId.value === props.property.documentId ||
+    hoveredPropertyId.value === props.property.documentId,
+);
+
+const targetElement = ref<HTMLElement | null>(null);
+
+const scrollToTarget = () => {
+  if (targetElement.value) {
+    targetElement.value.scrollIntoView({
+      behavior: "smooth", // smooth scroll (or 'auto' for instant)
+      block: "center", // align center of the screen ('center', 'end')
+    });
+  }
+};
+
+watch(
+  () => selectedPropertyId.value,
+  (value) => {
+    if (value && value === props.property.documentId) {
+      scrollToTarget();
+    }
+  },
+);
 </script>
 
 <template>
   <div
-    class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
+    ref="targetElement"
+    @mouseenter="setHovered(property.documentId)"
+    @mouseleave="setHovered(null)"
+    :class="[
+      'group overflow-hidden rounded-2xl ring-0 border bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md',
+      isActive
+        ? 'border-indigo-600 ring-4 ring-indigo-500/20'
+        : 'border-slate-200',
+    ]"
   >
     <div class="relative h-64 overflow-hidden bg-slate-100">
       <img
@@ -62,6 +102,21 @@ const formattedPrice = computed(() => {
       >
         {{ property.category.name }}
       </span>
+      <Button
+        variant="outline"
+        size="icon"
+        @click.stop="setSelected(property.documentId)"
+        class="absolute right-4 top-4"
+      >
+        <MapPinnedIcon
+          :class="[
+            'size-7',
+            selectedPropertyId === property.documentId
+              ? 'text-indigo-600'
+              : 'text-slate-600 hover:text-accent',
+          ]"
+        />
+      </Button>
     </div>
 
     <div class="p-5">
