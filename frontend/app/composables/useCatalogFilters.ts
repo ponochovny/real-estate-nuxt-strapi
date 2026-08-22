@@ -75,7 +75,7 @@ export const useCatalogFilters = () => {
     const routeCategory =
       typeof route.query.category === "string" ? route.query.category : "";
 
-    if (routeCategory !== filters.value.category) {
+    if (routeCategory !== filters.value.category && filters.value.category) {
       filters.value.activeProperty = null;
     }
     if (filters.value.category) {
